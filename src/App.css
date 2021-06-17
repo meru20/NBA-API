@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+.five-columns {
+  flex-basis: 19%;
+  flex-grow: 1;
+  margin: 0.5%;
+  min-width: 240px;
+  padding: 15px;
+}
+.th-card-bg-img{
+  height: 150px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}

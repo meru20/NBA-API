@@ -1,6 +1,5 @@
 import { SetLogoType } from '../services';
 
-
 const TeamCards = ({team}) => {
    
     return (

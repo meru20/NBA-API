@@ -37,8 +37,7 @@ const DashboardPage = () => {
   return (
     
       <div id='home-page'>
-        <div className='container'>
-          <div className='row text-center mt-3'>
+         <div className='row text-center mt-3'>
             <div className='col'>
                 <h1>NBA Teams</h1>
             </div>
@@ -63,7 +62,7 @@ const DashboardPage = () => {
     <div className='row '>
        {foundTeam.map((team,index) => {
             return (
-                <div className='five-columns ' key={index}> 
+                <div className='five-columns' key={index}> 
                     <TeamCards team={team}/>
                 </div>
                 )
@@ -71,8 +70,8 @@ const DashboardPage = () => {
       </div>
     </div>
     <TeamStats />
-      </div>
-      </div>
+   
+    </div>
       
 
   )
