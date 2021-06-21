@@ -81,11 +81,11 @@ const App = () => {
         labels: [
           'Assists',
           'Rebounds',
-          'Points',
+          'Points'
         ],
         datasets: [{
           label: 'Player 1',
-          data: [`${player1Stats?.ast}`, `${player1Stats?.reb}`, `${player1Stats?.pts}`],
+          data: [player1Stats?.ast, player1Stats?.reb, player1Stats?.pts],
           fill: true,
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           borderColor: 'rgb(255, 99, 132)',
@@ -95,7 +95,7 @@ const App = () => {
           pointHoverBorderColor: 'rgb(255, 99, 132)'
         }, {
           label: 'Player 2',
-          data: [`${player2Stats?.ast}`, `${player2Stats?.reb}`, `${player2Stats?.pts}`],
+          data: [player2Stats?.ast, player2Stats?.reb, player2Stats?.pts],
           fill: true,
           backgroundColor: 'rgba(54, 162, 235, 0.2)',
           borderColor: 'rgb(54, 162, 235)',
@@ -137,7 +137,7 @@ const App = () => {
         
         {/* DROPDOWN MENU */}
 
-        <form>
+        <form className="my-5">
           <select className="form-select my-3" aria-label="Default select example" onChange={event => getPlayer1Stats(event.target.value)}>
             <option value="0">Select Player 1</option>
             {players.map((player, index) => {
@@ -147,7 +147,7 @@ const App = () => {
             })}
           </select>
 
-{/* Make object from data */}
+        {/* Make object from data */}
 
         <select className="form-select my-3" aria-label="Default select example" onChange={event => getPlayer2Stats(event.target.value)}>
             <option value="0">Select Player 2</option>
@@ -161,7 +161,7 @@ const App = () => {
         </form>
 
         {/* CHART */}
-        <canvas id="myChart"></canvas>
+        <canvas className="my-5" id="myChart"></canvas>
 
         {/* SCORE COMPARISON TABLE */}
 
