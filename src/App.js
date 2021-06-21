@@ -25,12 +25,19 @@ const App = () => {
     
     console.log(playerId);
     const response = await axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`);
-    setPlayer1Stats(response.data.data);
-    console.log(response.data.data);
+    setPlayer1Stats(response.data.data[0]);
+    
+    console.log(response.data);
+    console.log(response.data.data[0]);
+    console.log(response.data.data[0]?.ast);
+    console.log(response.data.data[0]?.reb);
+    console.log(response.data.data[0]?.pts);
+    
     console.log(player1Stats);
-    console.log(player1Stats.ast);
-    console.log(player1Stats.reb);
-    console.log(player1Stats.pts);
+  
+    console.log(player1Stats?.ast);
+    console.log(player1Stats?.reb);
+    console.log(player1Stats?.pts);
   }
 
   const getPlayer2Stats = async (playerId) => {
@@ -39,12 +46,18 @@ const App = () => {
 
     console.log(playerId);
     const response = await axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`);
-    setPlayer2Stats(response.data.data);
+    setPlayer2Stats(response.data.data[0]);
+    
     console.log(response.data.data);
+    console.log(response.data.data[0]);
+    console.log(response.data.data[0]?.ast);
+    console.log(response.data.data[0]?.reb);
+    console.log(response.data.data[0]?.pts);
+    
     console.log(player2Stats);
-    console.log(player2Stats.ast);
-    console.log(player2Stats.reb);
-    console.log(player2Stats.pts);
+    console.log(player2Stats?.ast);
+    console.log(player2Stats?.reb);
+    console.log(player2Stats?.pts);
   }
 
   // FETCH DATA
@@ -72,7 +85,7 @@ const App = () => {
         ],
         datasets: [{
           label: 'Player 1',
-          data: [`${player1Stats.ast}`, `${player1Stats.reb}`, `${player1Stats.pts}`],
+          data: [`${player1Stats?.ast}`, `${player1Stats?.reb}`, `${player1Stats?.pts}`],
           fill: true,
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           borderColor: 'rgb(255, 99, 132)',
@@ -82,7 +95,7 @@ const App = () => {
           pointHoverBorderColor: 'rgb(255, 99, 132)'
         }, {
           label: 'Player 2',
-          data: [`${player2Stats.ast}`, `${player2Stats.reb}`, `${player2Stats.pts}`],
+          data: [`${player2Stats?.ast}`, `${player2Stats?.reb}`, `${player2Stats?.pts}`],
           fill: true,
           backgroundColor: 'rgba(54, 162, 235, 0.2)',
           borderColor: 'rgb(54, 162, 235)',
@@ -154,12 +167,12 @@ const App = () => {
 
         <div className="my-5" id="score-comparison">
 
-          <h3 className="text-center my-3">Player Statistics</h3>
+        <h3 className="text-center my-3">Player Overview</h3>
 
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th scope="col">Player #</th>
+                  <th scope="col">Player</th>
                   <th scope="col">Assists</th>
                   <th scope="col">Rebounds</th>
                   <th scope="col>">Points</th>
@@ -168,16 +181,16 @@ const App = () => {
               <tbody>
                 <tr>
                   <th scope="row">1</th>
-                  <td>{player1Stats.ast}</td>
-                  <td>{player1Stats.reb}</td>
-                  <td>{player1Stats.pts}</td>
+                  <td>{(!player1Stats?.ast) ? 'N/A': player1Stats?.ast}</td>
+                  <td>{(!player1Stats?.reb) ? 'N/A': player1Stats?.reb}</td>
+                  <td>{(!player1Stats?.pts) ? 'N/A': player1Stats?.pts}</td>
                 </tr>
 
                 <tr>
                   <th scope="row">2</th>
-                  <td>{player2Stats.ast}</td>
-                  <td>{player2Stats.reb}</td>
-                  <td>{player2Stats.pts}</td>
+                  <td>{(!player2Stats?.ast) ? 'N/A': player2Stats?.ast}</td>
+                  <td>{(!player2Stats?.reb) ? 'N/A': player2Stats?.reb}</td>
+                  <td>{(!player2Stats?.pts) ? 'N/A': player2Stats?.pts}</td>
                 </tr>
               </tbody>
             </table>
