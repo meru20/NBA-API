@@ -11,8 +11,10 @@ const App = () => {
 
   const getAllPlayers = async () => {
     const response = await axios.get('https://www.balldontlie.io/api/v1/players');
-    setPlayers(response.data);
+    setPlayers(response.data.data);
+    
     console.log(response.data);
+    console.log(response.data.data);
     console.log(response.data.data[0].first_name, response.data.data[0].last_name, response.data.data[0].position, response.data.data[0].team.full_name);
     
   }
@@ -24,6 +26,7 @@ const App = () => {
     console.log(playerId);
     const response = await axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`);
     setPlayer1Stats(response.data.data);
+    console.log(response.data.data);
     console.log(player1Stats);
     console.log(player1Stats.ast);
     console.log(player1Stats.reb);
@@ -37,6 +40,7 @@ const App = () => {
     console.log(playerId);
     const response = await axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`);
     setPlayer2Stats(response.data.data);
+    console.log(response.data.data);
     console.log(player2Stats);
     console.log(player2Stats.ast);
     console.log(player2Stats.reb);
@@ -123,7 +127,7 @@ const App = () => {
         <form>
           <select className="form-select my-3" aria-label="Default select example" onChange={event => getPlayer1Stats(event.target.value)}>
             <option value="0">Select Player 1</option>
-            {players.data?.map((player, index) => {
+            {players.map((player, index) => {
                 return (
                   <option key={index} value={player.id}>{player.first_name} {player.last_name}</option>
                 );
@@ -134,7 +138,7 @@ const App = () => {
 
         <select className="form-select my-3" aria-label="Default select example" onChange={event => getPlayer2Stats(event.target.value)}>
             <option value="0">Select Player 2</option>
-            {players.data?.map((player, index) => {
+            {players.map((player, index) => {
                 return (
                   <option key={index} value={player.id}>{player.first_name} {player.last_name}</option>
                 );
@@ -146,8 +150,42 @@ const App = () => {
         {/* CHART */}
         <canvas id="myChart"></canvas>
 
+        {/* SCORE COMPARISON TABLE */}
+
+        <div className="my-5" id="score-comparison">
+
+          <h3 className="text-center my-3">Player Statistics</h3>
+
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Player #</th>
+                  <th scope="col">Assists</th>
+                  <th scope="col">Rebounds</th>
+                  <th scope="col>">Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>{player1Stats.ast}</td>
+                  <td>{player1Stats.reb}</td>
+                  <td>{player1Stats.pts}</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">2</th>
+                  <td>{player2Stats.ast}</td>
+                  <td>{player2Stats.reb}</td>
+                  <td>{player2Stats.pts}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
         {/* 2018-2019 PLAYER ROSTER */}
-        <div id="players">
+        <div className="my-5" id="players">
 
           <h3 className="text-center my-3">Player Roster</h3>
         
@@ -162,7 +200,7 @@ const App = () => {
               </tr>
             </thead>
             <tbody>
-              {players.data?.map((player, index) => {
+              {players.map((player, index) => {
                 return (
                   <tr key={index}>
                     <th scope="row">{index}</th>
