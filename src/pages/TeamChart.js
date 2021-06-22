@@ -2,10 +2,11 @@ import instance from '../api/apiConfig';
 import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-const TeamStats = (getTeam) => {
+const TeamStats = ({getTeam}) => {
     const [chartData, setChartData] = useState({});
     const [homeTeam, setHomeTeam] = useState([]);
     const [vistorTeam, setVisitorTeam] = useState([]);
+    const [games, setGames] = useState([]);
     
     const chart = () => {
         let homeTeamScore = []; 
@@ -18,9 +19,13 @@ const TeamStats = (getTeam) => {
         .then(res => {
             console.log('main',res);
             console.log('foundTeam',getTeam)
+            debugger;
+            let gms = res.data.data.filter(g => g.home_team.name === getTeam);
+            console.log('what is gms?', gms);
+            setGames(gms);
             for( const dataObj of res.data.data) {
               console.log('dataObj', dataObj)
-              debugger;
+              // debugger;
               if (getTeam === dataObj.home_team.name) {
                 
                 console.log('homegetTeam',getTeam)
