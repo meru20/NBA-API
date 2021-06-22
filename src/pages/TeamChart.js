@@ -2,7 +2,7 @@ import instance from '../api/apiConfig';
 import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-const TeamStats = (team) => {
+const TeamStats = (getTeam) => {
     const [chartData, setChartData] = useState({});
     const [homeTeam, setHomeTeam] = useState([]);
     const [vistorTeam, setVisitorTeam] = useState([]);
@@ -17,18 +17,41 @@ const TeamStats = (team) => {
         instance.get('/games')
         .then(res => {
             console.log('main',res);
+            console.log('foundTeam',getTeam)
             for( const dataObj of res.data.data) {
+              console.log('dataObj', dataObj)
+              debugger;
+              if (getTeam === dataObj.home_team.name) {
+                
+                console.log('homegetTeam',getTeam)
                 homeTeamScore.push(parseInt(dataObj.home_team_score))
-                visitorTeamScore.push(parseInt(dataObj.visitor_team_score))
-                visitorName.push(dataObj.visitor_team.name)
                 homeName.push(dataObj.home_team.name)
+                visitorName.push(dataObj.visitor_team.name)
+                visitorTeamScore.push(parseInt(dataObj.visitor_team_score))
                 gameId.push(parseInt(dataObj.id))
+              }
+              else if (getTeam === dataObj.visitor_team.name){
+                homeTeamScore.push(parseInt(dataObj.visitor_team_score))
+                homeName.push(dataObj.visitor_team.name)
+                visitorName.push(dataObj.home_team.name)
+                visitorTeamScore.push(parseInt(dataObj.home_team_score))
+                gameId.push(parseInt(dataObj.id))
+
+              }
+                // homeTeamScore.push(parseInt(dataObj.home_team_score))
+                // visitorTeamScore.push(parseInt(dataObj.visitor_team_score))
+                // visitorName.push(dataObj.visitor_team.name)
+                // homeName.push(dataObj.home_team.name)
+                 //gameId.push(parseInt(dataObj.id))
+                // console.log('object in an array',res.data.data[0])
+                console.log('object in an array',homeName)
               }
             setChartData({
                 labels : visitorName,
                 datasets: [
                     {
-                      label:res.data.data[0].home_team.name,
+                      label:homeName,
+                      //label:res.data.data[0].home_team.name,
                       backgroundColor:  'rgb(255, 99, 132)',
                       data: homeTeamScore,
                     },

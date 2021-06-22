@@ -13,7 +13,7 @@ const DashboardPage = () => {
            let {data} = await instance.get('/teams')
            let items = data.data;
            setTeams(items);
-           console.log('teams', teams);
+          //  console.log('teams', teams);   -----> check
           }
       catch (e){
               console.log(e);
@@ -22,16 +22,36 @@ const DashboardPage = () => {
  
    useEffect(() => {
     getTeams();
-     console.log('showteams',teams)
+   
+    //  console.log('showteams',teams) ------> check
     }, [searchTerm]);
   
     const foundTeam = teams.filter(tm => {
+     
       return (
           tm.name.toLowerCase().includes(searchTerm.toLowerCase())) 
-  })
+          
+  }
+  )
+  const findTeam = () => {
+    if(searchTerm){
+      let getTeam = foundTeam[0].name;
+      return(
+       <TeamStats getTeam={getTeam} />
+       //<TeamStats/>
+     )}
+  }
+  
+ 
+  // if(searchTerm){
+  //   let getTeam = foundTeam[0].name;
+  //    console.log('getteam',getTeam)
+  // }
+     
 
      const handleChange = (event) => {
        setSearchTerm(event.target.value);
+       
       }
 
   return (
@@ -69,9 +89,27 @@ const DashboardPage = () => {
         })}
       </div>
     </div>
-    <TeamStats />
-   
+    <div className='row'>
+      {findTeam()}
+      {/* {(() => {
+        if(searchTerm){
+          let getTeam = foundTeam[0].name;
+          console.log('inised jsx', getTeam)
+          
+          return(
+            <TeamStats getTeam={getTeam} />
+          )
+       
+          }
+
+      })} */}
+      
+
     </div>
+    
+    
+   
+      </div>
       
 
   )
