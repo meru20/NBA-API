@@ -5,9 +5,13 @@ import './App.css';
 
 const App = () => {
 
-  const[players, setPlayers] = useState([]);  // Player 
+  const[players, setPlayers] = useState([]);  // Player
+
   const[player1Stats, setPlayer1Stats] = useState([]);  // Set first target player in first dropdown menu
+  const[player1, setPlayer1] = useState([]);
+
   const[player2Stats, setPlayer2Stats] = useState([]);  // Set second target player in second dropdown menu
+  const[player2, setPlayer2] = useState([]);
 
   const getAllPlayers = async () => {
     const response = await axios.get('https://www.balldontlie.io/api/v1/players');
@@ -19,46 +23,142 @@ const App = () => {
     
   }
 
-  const getPlayer1Stats = async (playerId) => {
+  // const getPlayer1Stats = async (playerId) => {
     
-    if (!playerId) { playerId = 0 };
+  //   if (!playerId) { playerId = 0 };
     
-    console.log(playerId);
+  //   console.log(playerId);
+  //   const response = await axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`);
+  //   let player1 = response.data.data[0];
+  //   setPlayer1Stats(player1);
+    
+  //   console.log(response.data);
+  //   console.log(response.data.data[0]);
+  //   console.log(response.data.data[0]?.ast);
+  //   console.log(response.data.data[0]?.reb);
+  //   console.log(response.data.data[0]?.pts);
+    
+  //   console.log(player1Stats);
+  
+  //   console.log(player1Stats?.ast);
+  //   console.log(player1Stats?.reb);
+  //   console.log(player1Stats?.pts);
+  // }
+
+const getPlayer1Stats = async (playerId) => {
+  
+  if (!playerId) { playerId = 0 };
+  
+  console.log(playerId);
+
+  try {
     const response = await axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`);
-    setPlayer1Stats(response.data.data[0]);
-    
+    let player1 = response.data.data[0];
+    setPlayer1(player1);
+
     console.log(response.data);
     console.log(response.data.data[0]);
     console.log(response.data.data[0]?.ast);
     console.log(response.data.data[0]?.reb);
     console.log(response.data.data[0]?.pts);
     
-    console.log(player1Stats);
+    console.log(player1);
+    console.log(player1?.ast);
+    console.log(player1?.reb);
+    console.log(player1?.pts);
+
+  }
+  catch (e) {
+    console.log(e);
+  }
   
-    console.log(player1Stats?.ast);
-    console.log(player1Stats?.reb);
-    console.log(player1Stats?.pts);
+}
+
+const fetchPlayer1 = async (playerId) => {
+
+  if (!playerId) { playerId = 0 };
+  
+  console.log(playerId);
+
+  try {
+    const response = await axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`);
+    let player1 = response.data.data[0];
+    setPlayer1Stats(player1);
+    getPlayer1Stats(playerId);
+  }
+  catch (e) {
+    console.log(e);
   }
 
-  const getPlayer2Stats = async (playerId) => {
+}
 
-    if (!playerId) { playerId = 0 };
+// const getPlayer2Stats = async (playerId) => {
 
-    console.log(playerId);
+//   if (!playerId) { playerId = 0 };
+
+//   console.log(playerId);
+//   const response = await axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`);
+//   setPlayer2Stats(response.data.data[0]);
+  
+//   console.log(response.data.data);
+//   console.log(response.data.data[0]);
+//   console.log(response.data.data[0]?.ast);
+//   console.log(response.data.data[0]?.reb);
+//   console.log(response.data.data[0]?.pts);
+
+//   console.log(player2Stats);
+//   console.log(player2Stats?.ast);
+//   console.log(player2Stats?.reb);
+//   console.log(player2Stats?.pts);
+
+// }
+
+const getPlayer2Stats = async (playerId) => {
+  
+  if (!playerId) { playerId = 0 };
+  
+  console.log(playerId);
+
+  try {
     const response = await axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`);
-    setPlayer2Stats(response.data.data[0]);
-    
-    console.log(response.data.data);
+    let player2 = response.data.data[0];
+    setPlayer2(player2);
+
+    console.log(response.data);
     console.log(response.data.data[0]);
     console.log(response.data.data[0]?.ast);
     console.log(response.data.data[0]?.reb);
     console.log(response.data.data[0]?.pts);
     
-    console.log(player2Stats);
-    console.log(player2Stats?.ast);
-    console.log(player2Stats?.reb);
-    console.log(player2Stats?.pts);
+    console.log(player2);
+    console.log(player2?.ast);
+    console.log(player2?.reb);
+    console.log(player2?.pts);
+
   }
+  catch (e) {
+    console.log(e);
+  }
+  
+}
+
+const fetchPlayer2 = async (playerId) => {
+
+  if (!playerId) { playerId = 0 };
+  
+  console.log(playerId);
+
+  try {
+    const response = await axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`);
+    let player2 = response.data.data[0];
+    setPlayer2Stats(player2);
+    getPlayer2Stats(playerId);
+  }
+  catch (e) {
+    console.log(e);
+  }
+
+}
 
   // FETCH DATA
 
@@ -106,10 +206,12 @@ const App = () => {
         }]
       }
     });
+
     return () => {
       myChart.destroy();
     }
-  }, []);
+    
+  }, [player1Stats, player2Stats]);
 
   return (
     <div className="mb-5" id="app">
@@ -138,7 +240,7 @@ const App = () => {
         {/* DROPDOWN MENU */}
 
         <form className="my-5">
-          <select className="form-select my-3" aria-label="Default select example" onChange={event => getPlayer1Stats(event.target.value)}>
+          <select className="form-select btn-primary my-3" aria-label="Default select example" onChange={event => fetchPlayer1(event.target.value)}>
             <option value="0">Select Player 1</option>
             {players.map((player, index) => {
                 return (
@@ -149,7 +251,7 @@ const App = () => {
 
         {/* Make object from data */}
 
-        <select className="form-select my-3" aria-label="Default select example" onChange={event => getPlayer2Stats(event.target.value)}>
+        <select className="form-select btn-primary my-3" aria-label="Default select example" onChange={event => fetchPlayer2(event.target.value)}>
             <option value="0">Select Player 2</option>
             {players.map((player, index) => {
                 return (
