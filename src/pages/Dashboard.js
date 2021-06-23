@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import instance from '../api/apiConfig';
-import TeamStats from './TeamChart';
+import TeamChart from './TeamChart';
 import TeamCards from '../components/TeamCard';
 
 
@@ -13,7 +13,6 @@ const DashboardPage = () => {
            let {data} = await instance.get('/teams')
            let items = data.data;
            setTeams(items);
-          //  console.log('teams', teams);   -----> check
           }
       catch (e){
               console.log(e);
@@ -22,9 +21,7 @@ const DashboardPage = () => {
  
    useEffect(() => {
     getTeams();
-   
-    //  console.log('showteams',teams) ------> check
-    }, [searchTerm]);
+  }, [searchTerm]);
   
     const foundTeam = teams.filter(tm => {
      
@@ -37,19 +34,11 @@ const DashboardPage = () => {
     if(searchTerm){
       let getTeam = foundTeam[0].name;
       return(
-       <TeamStats getTeam={getTeam} />
-       //<TeamStats/>
+       <TeamChart getTeam={getTeam} />
+       
      )}
   }
-  
- 
-  // if(searchTerm){
-  //   let getTeam = foundTeam[0].name;
-  //    console.log('getteam',getTeam)
-  // }
-     
-
-     const handleChange = (event) => {
+    const handleChange = (event) => {
        setSearchTerm(event.target.value);
        
       }
@@ -91,25 +80,8 @@ const DashboardPage = () => {
     </div>
     <div className='row'>
       {findTeam()}
-      {/* {(() => {
-        if(searchTerm){
-          let getTeam = foundTeam[0].name;
-          console.log('inised jsx', getTeam)
-          
-          return(
-            <TeamStats getTeam={getTeam} />
-          )
-       
-          }
-
-      })} */}
-      
-
+     </div>
     </div>
-    
-    
-   
-      </div>
       
 
   )

@@ -2,12 +2,9 @@ import instance from '../api/apiConfig';
 import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-const TeamStats = (getTeam) => {
+const TeamChart = ({getTeam}) => {
     const [chartData, setChartData] = useState({});
-    const [homeTeam, setHomeTeam] = useState([]);
-    const [vistorTeam, setVisitorTeam] = useState([]);
-    
-    const chart = () => {
+     const chart = () => {
         let homeTeamScore = []; 
         let visitorTeamScore = [];
         let visitorName = [];
@@ -18,12 +15,17 @@ const TeamStats = (getTeam) => {
         .then(res => {
             console.log('main',res);
             console.log('foundTeam',getTeam)
+            // let games = res.data.data.filter(
+            //   g => g.home_team.name === getTeam || g.visitor_team.name === getTeam
+            //   );
+
             for( const dataObj of res.data.data) {
+              
               console.log('dataObj', dataObj)
-              debugger;
+              
               if (getTeam === dataObj.home_team.name) {
                 
-                console.log('homegetTeam',getTeam)
+              
                 homeTeamScore.push(parseInt(dataObj.home_team_score))
                 homeName.push(dataObj.home_team.name)
                 visitorName.push(dataObj.visitor_team.name)
@@ -38,19 +40,13 @@ const TeamStats = (getTeam) => {
                 gameId.push(parseInt(dataObj.id))
 
               }
-                // homeTeamScore.push(parseInt(dataObj.home_team_score))
-                // visitorTeamScore.push(parseInt(dataObj.visitor_team_score))
-                // visitorName.push(dataObj.visitor_team.name)
-                // homeName.push(dataObj.home_team.name)
-                 //gameId.push(parseInt(dataObj.id))
-                // console.log('object in an array',res.data.data[0])
-                console.log('object in an array',homeName)
+               
               }
             setChartData({
                 labels : visitorName,
                 datasets: [
                     {
-                      label:homeName,
+                      label:homeName[0],
                       //label:res.data.data[0].home_team.name,
                       backgroundColor:  'rgb(255, 99, 132)',
                       data: homeTeamScore,
@@ -85,7 +81,7 @@ const TeamStats = (getTeam) => {
       console.log('chart',chartData)
     useEffect (() => {
         chart()
-    },[])
+    },[getTeam])
     
     return (
         <div className ='row text-center'>
@@ -97,4 +93,4 @@ const TeamStats = (getTeam) => {
 
     )
 }
-export default TeamStats;
+export default TeamChart;
