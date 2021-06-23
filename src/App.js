@@ -5,12 +5,12 @@ import './App.css';
 
 const App = () => {
 
-  const[players, setPlayers] = useState([]);  // Player
+  const[players, setPlayers] = useState([]);
 
-  const[player1Stats, setPlayer1Stats] = useState([]);  // Set first target player in first dropdown menu
+  const[player1Stats, setPlayer1Stats] = useState([]);
   const[player1, setPlayer1] = useState([]);
 
-  const[player2Stats, setPlayer2Stats] = useState([]);  // Set second target player in second dropdown menu
+  const[player2Stats, setPlayer2Stats] = useState([]);
   const[player2, setPlayer2] = useState([]);
 
   const getAllPlayers = async () => {
@@ -23,7 +23,11 @@ const App = () => {
     
   }
 
-  // const getPlayer1Stats = async (playerId) => {
+// Version 1
+// Not working since it did not retrieve stats right away
+// Printed in console as undefined when calling player1Stats
+  
+// const getPlayer1Stats = async (playerId) => {
     
   //   if (!playerId) { playerId = 0 };
     
@@ -43,7 +47,11 @@ const App = () => {
   //   console.log(player1Stats?.ast);
   //   console.log(player1Stats?.reb);
   //   console.log(player1Stats?.pts);
-  // }
+// }
+
+// Version 2
+// Has two go through 2 async functions
+// Double check system to make sure the
 
 const getPlayer1Stats = async (playerId) => {
   
@@ -92,6 +100,10 @@ const fetchPlayer1 = async (playerId) => {
 
 }
 
+// Version 1
+// Not working since it did not retrieve PlayerStats right away
+// Printed in console as undefined when calling player2Stats
+
 // const getPlayer2Stats = async (playerId) => {
 
 //   if (!playerId) { playerId = 0 };
@@ -112,6 +124,10 @@ const fetchPlayer1 = async (playerId) => {
 //   console.log(player2Stats?.pts);
 
 // }
+
+// Version 2
+// Has two go through 2 async functions
+// Double check system
 
 const getPlayer2Stats = async (playerId) => {
   
@@ -248,8 +264,6 @@ const fetchPlayer2 = async (playerId) => {
                 );
             })}
           </select>
-
-        {/* Make object from data */}
 
         <select className="form-select btn-primary my-3" aria-label="Default select example" onChange={event => fetchPlayer2(event.target.value)}>
             <option value="0">Select Player 2</option>
