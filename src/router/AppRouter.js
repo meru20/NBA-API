@@ -9,7 +9,7 @@ const AppRouter = () => {
         <div className='container'>
           <Switch>
             <Route path='/' exact component={DashboardPage} />
-            
+            {/* <Route path='/playerstats' exact component={PlayerStatsPage}/> */}
           </Switch>
         </div>
       </div>

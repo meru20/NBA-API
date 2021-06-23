@@ -1,9 +1,14 @@
 import { SetLogoType } from '../services';
-
+/**
+ * grab the passed team with it's details
+ * display the details using card from bootstrap
+ * 
+ */
 const TeamCards = ({team}) => {
    
     return (
-        <div className= 'card mb-3'>
+        <div id='team-chart'>
+            <div className= 'card mb-3 border-0 card-wrapper'>
             <div className='card-header text-center' >
                <div className='th-card-bg-img' style={{backgroundImage:`url(${SetLogoType(team.name)})`}}></div>
             </div>
@@ -17,6 +22,9 @@ const TeamCards = ({team}) => {
             <div className='card-footer  d-flex justify-content-between'>{team.city}</div>
             
         </div>
+
+        </div>
+        
     )
 }
 export default TeamCards;
