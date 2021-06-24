@@ -16,8 +16,8 @@ const DashboardPage = () => {
    const getTeams = async () => {
        try{
            let {data} = await instance.get('/teams')
-           let items = data.data;
-           setTeams(items);
+           let clubs = data.data;
+           setTeams(clubs);
           }
       catch (e){
               console.log(e);
