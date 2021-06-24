@@ -21,7 +21,7 @@ const Navbar = () => {
             Team Dashboard
           </Link>
 
-          <Link className='nav-link' to='/heroes'>
+          <Link className='nav-link' to='/playerstats'>
             Player Status
           </Link>
 
