@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import instance from '../api/apiConfig';
-import TeamChart from './TeamChart';
+import TeamChart from '../components/TeamChart';
 import TeamCards from '../components/TeamCard';
 
 /**  Display all teams with their information
