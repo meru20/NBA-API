@@ -16,29 +16,16 @@ const TeamChart = ({getTeam}) => {
         let visitorTeamScore = [];
         let visitorName = [];
         let homeName = [];
-        // let gameId = [];
+       
         
         //Make api call to grab all the games played for year 2018
         instance.get('/games')
         .then(res => {
-            
-            /*let games = res.data.data.filter(
-              g => g.home_team.name === getTeam || g.visitor_team.name === getTeam
-              );
-              homeTeamScore.push(parseInt(games.home_team_score))
-              homeName.push(games.home_team.name)
-              visitorName.push(games.visitor_team.name)
-              visitorTeamScore.push(parseInt(games.visitor_team_score))
-              gameId.push(parseInt(games.id))*/
-
            //from the data we grabbed check for the desired team 
            //and grab all the games the desired team had
            //and push it to our empty array 
 
             for( const dataObj of res.data.data) {
-              
-              console.log('dataObj', dataObj)
-              
               if (getTeam === dataObj.home_team.name) {
                 
               
@@ -46,14 +33,14 @@ const TeamChart = ({getTeam}) => {
                 homeName.push(dataObj.home_team.name)
                 visitorName.push(dataObj.visitor_team.name)
                 visitorTeamScore.push(parseInt(dataObj.visitor_team_score))
-                // gameId.push(parseInt(dataObj.id))
+                
               }
               else if (getTeam === dataObj.visitor_team.name){
                 homeTeamScore.push(parseInt(dataObj.visitor_team_score))
                 homeName.push(dataObj.visitor_team.name)
                 visitorName.push(dataObj.home_team.name)
                 visitorTeamScore.push(parseInt(dataObj.home_team_score))
-                // gameId.push(parseInt(dataObj.id))
+               
 
               }
                
